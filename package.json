@@ -1,0 +1,32 @@
+{
+  "name": "diceroller",
+  "version": "0.0.1",
+  "description": "dice rolling server",
+  "main": "server/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "make build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ripter/diceRoller.git"
+  },
+  "author": "Chris Richards",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ripter/diceRoller/issues"
+  },
+  "homepage": "https://github.com/ripter/diceRoller#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "express-ws": "^4.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-transform-runtime": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "babel-loader": "^8.0.0",
+    "webpack": "^4.17.1",
+    "webpack-command": "^0.4.1"
+  }
+}
