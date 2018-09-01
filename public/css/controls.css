@@ -1,0 +1,12 @@
+[state="closed"] .controls form:last-child {
+  display: none;
+}
+[state="opened"] .controls form:first-child  {
+  display: none;
+}
+[state="pending"]  .controls  {
+}
+
+.controls  {
+
+}

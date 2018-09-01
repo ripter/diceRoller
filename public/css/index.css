@@ -1,15 +1,21 @@
 @import "./cube-3d.css";
 @import "./dice-result.css";
+@import "./dice-overview.css";
+@import "./dice-log-item.css";
+@import "./controls.css";
 
 :root {
   --dice-size: 50px;
 }
 
-#elmSocketStatus[state="closed"]::before {
+[state="closed"] #elmSocketStatus::before {
   content: '🍎';
 }
-#elmSocketStatus[state="opened"]::before {
+[state="opened"] #elmSocketStatus::before {
   content: '🍏';
+}
+[state="pending"] #elmSocketStatus::before {
+  content: '🍋';
 }
 
 

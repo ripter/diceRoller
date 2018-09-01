@@ -1,4 +1,4 @@
-import { bind } from 'hyperHTML';
+import { bind, wire } from 'hyperHTML';
 import diceFate from './render/diceFate.js';
 let userName = '';
 let socket = null;
@@ -24,11 +24,11 @@ btnLogin.addEventListener('click', function(event) {
   }
 
   userName = name;
+  document.body.setAttribute('state', 'pending');
   window.socket = socket = new WebSocket(`ws:/${location.host}/`);
 
   // wait for connection
   socket.addEventListener('open', function() {
-    elmSocketStatus.setAttribute('state', 'opened');
     // Send login info
     socket.send(JSON.stringify({
       type: 'login',
@@ -38,7 +38,7 @@ btnLogin.addEventListener('click', function(event) {
 
   // If the connection is lost, update the ui to show it.
   socket.addEventListener('close', function() {
-    elmSocketStatus.setAttribute('state', 'closed');
+    document.body.setAttribute('state', 'closed');
   });
 
   // If the connection is lost, update the ui to show it.
@@ -52,22 +52,38 @@ btnLogin.addEventListener('click', function(event) {
       return;
     }
 
-    console.log('message', payload);
     switch (payload.type) {
       case 'response-roll':
         updateRolls(payload);
         break;
+      case 'response-login':
+        login();
+        break;
       default:
-        // ignore
+        console.log('message', payload);
     }
   });
 });
 
 function updateRolls(diceRoll) {
-  return bind(elmOutput)`<div class="dice-result">${
-    diceRoll.dice.map((diceResult) => {
+  const { userName, total, dice } = diceRoll;
+
+  const elmItem = wire()`<div class="dice-log-item">
+  <div class="dice-overview">
+    <h1>${userName} rolled a ${total}</h1>
+  </div>
+  <div class="dice-result">${
+    dice.map((diceResult) => {
       return diceFate(diceResult);
     })
-  }</div>`;
+  }</div>
+  </div>`;
+
+  elmOutput.prepend(elmItem);
   // elmOutput.value = `${userName} rolled a ${total}\n` + elmOutput.value;
+}
+
+
+function login() {
+  document.body.setAttribute('state', 'opened');
 }

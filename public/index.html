@@ -9,17 +9,19 @@
   <link rel="stylesheet" href="css/index.css"></link>
   <script src="js/bundle.js" async></script>
 </head>
-<body>
-  <h1>WebSockets: <span id="elmSocketStatus" state="closed"></span></h1>
+<body state="closed">
+  <h1>WebSockets: <span id="elmSocketStatus"></span></h1>
 
-  <form class="login">
-    <label for="inputName">Name:</label>
-    <input id="inputName" type="text" />
-    <button id="btnLogin" type="button">Login</button>
-  </form>
-  <form>
-    <button id="btnRoll" type="button">Roll!</button>
-  </form>
+  <div class="controls">
+    <form>
+      <label for="inputName">Name:</label>
+      <input id="inputName" type="text" />
+      <button id="btnLogin" type="button">Login</button>
+    </form>
+    <form>
+      <button id="btnRoll" type="button">Roll!</button>
+    </form>
+  </div>
 
   <div id=elmOutput></div>
 </body>
