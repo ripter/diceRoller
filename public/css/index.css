@@ -1,6 +1,8 @@
-#elmOutput {
-  width: 20em;
-  height: 30em;
+@import "./cube-3d.css";
+@import "./dice-result.css";
+
+:root {
+  --dice-size: 50px;
 }
 
 #elmSocketStatus[state="closed"]::before {
@@ -8,4 +10,41 @@
 }
 #elmSocketStatus[state="opened"]::before {
   content: '🍏';
+}
+
+
+/**
+ * Config
+ */
+.cube-3d {
+  width: var(--dice-size);
+  height: var(--dice-size);
+  font-size: var(--dice-size); /* Controls size/position of cube faces */
+  margin: 0.25em;
+}
+.cube-3d .cube {
+  /* Just a neat resting position */
+  transform: rotateX(15deg) rotateY(45deg);
+}
+/* Style items inside the cube */
+.cube > div {
+  line-height: 1.3em;
+  border: thin solid black;
+}
+
+
+/**
+ * Themes
+ */
+.cube-3d.theme-orange .cube > div {
+  background-color: #FF851B;
+}
+.cube-3d.theme-blue .cube > div {
+  background-color: #0074D9;
+}
+.cube-3d.theme-yellow .cube > div {
+  background-color: #FFDC00;
+}
+.cube-3d.theme-purple .cube > div {
+  background-color: #B10DC9;
 }

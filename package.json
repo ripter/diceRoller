@@ -19,7 +19,9 @@
   "homepage": "https://github.com/ripter/diceRoller#readme",
   "dependencies": {
     "express": "^4.16.3",
-    "express-ws": "^4.0.0"
+    "express-ws": "^4.0.0",
+    "hyperhtml": "^2.13.0",
+    "hypermorphic": "^0.8.0"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",

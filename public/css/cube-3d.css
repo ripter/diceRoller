@@ -1,0 +1,39 @@
+/*
+ * 3D Cube in CSS
+ */
+.cube-3d {
+  perspective: 10em;
+}
+.cube-3d .cube,
+.cube-3d .cube > div {
+  width: 1em;
+  height: 1em;
+}
+
+/**
+ * Using .cube as the root, create a 3d cube.
+ * We use a combination of position and transform to create the faces.
+ */
+.cube-3d .cube {
+  transform-style: preserve-3d;
+  position: relative;
+}
+.cube-3d .cube > div {
+  backface-visibility: hidden;
+  position: absolute;
+}
+/* Rotatate and move the faces into place */
+.cube-3d .cube > :nth-child(1) { transform: rotateY(0deg)   translateZ(0.5em);}
+.cube-3d .cube > :nth-child(2) { transform: rotateY(90deg)  translateZ(0.5em);}
+.cube-3d .cube > :nth-child(3) { transform: rotateX(90deg)  translateZ(0.5em);}
+.cube-3d .cube > :nth-child(4) { transform: rotateX(-90deg) translateZ(0.5em);}
+.cube-3d .cube > :nth-child(5) { transform: rotateY(-90deg) translateZ(0.5em);}
+.cube-3d .cube > :nth-child(6) { transform: rotateY(180deg) translateZ(0.5em);}
+
+/* Rotate the entire cube to show a specific face */
+.cube-3d.cube-3d--one .cube { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);}
+.cube-3d.cube-3d--two .cube { transform: rotateX(0deg) rotateY(-90deg) rotateZ(0deg);}
+.cube-3d.cube-3d--three .cube { transform: rotateX(90deg) rotateY(0deg) rotateZ(0deg);}
+.cube-3d.cube-3d--four .cube { transform: rotateX(-90deg) rotateY(0deg) rotateZ(0deg);}
+.cube-3d.cube-3d--five .cube { transform: rotateX(0deg) rotateY(90deg) rotateZ(0deg);}
+.cube-3d.cube-3d--six .cube { transform: rotateX(0deg) rotateY(-180deg) rotateZ(0deg);}

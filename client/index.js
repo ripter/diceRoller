@@ -1,3 +1,6 @@
+import { bind } from 'hyperHTML';
+import diceFate from './render/diceFate.js';
+let userName = '';
 let socket = null;
 
 // Make sure the output starts cleared
@@ -5,15 +8,11 @@ elmOutput.value = '';
 // Listen for roll clicks
 window.btnRoll.addEventListener('click', function(event) {
   if (!socket || socket.readyState !== socket.OPEN) { return; }
-  // const result = rollFateDice();
-  // const result = roll1dF();
-  // elmOutput.value = `${NAME} rolled a ${result}\n` + elmOutput.value;
-    // Ask for a dice roll
-    socket.send(JSON.stringify({
-      type: 'roll',
-      userName,
-    }));
-
+  // Ask for a dice roll
+  socket.send(JSON.stringify({
+    type: 'roll',
+    userName,
+  }));
 });
 
 
@@ -53,16 +52,22 @@ btnLogin.addEventListener('click', function(event) {
       return;
     }
 
+    console.log('message', payload);
     switch (payload.type) {
       case 'response-roll':
         updateRolls(payload);
         break;
       default:
-        console.log('message', payload);
+        // ignore
     }
   });
 });
 
-function updateRolls({ userName, total }) {
-  elmOutput.value = `${userName} rolled a ${total}\n` + elmOutput.value;
+function updateRolls(diceRoll) {
+  return bind(elmOutput)`<div class="dice-result">${
+    diceRoll.dice.map((diceResult) => {
+      return diceFate(diceResult);
+    })
+  }</div>`;
+  // elmOutput.value = `${userName} rolled a ${total}\n` + elmOutput.value;
 }
