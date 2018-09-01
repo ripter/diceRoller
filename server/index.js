@@ -18,7 +18,7 @@ app.use(function(req, res, next) {
 // URL for WebSocket
 app.ws('/', function(ws, req) {
   ws.on('message', function(msg) {
-    console.log('onMessage: ', msg);
+    // console.log('onMessage: ', msg);
     let payload;
     try {
       payload = JSON.parse(msg);
@@ -39,13 +39,12 @@ app.ws('/', function(ws, req) {
         sendError(ws, `Unknown payload.type: "${payload.type}"`);
     }
   });
-  ws.on('close', function(msg) {
-    console.log('onClose: ', msg);
-  });
+  // ws.on('close', function(msg) {
+  //   console.log('onClose: ', msg);
+  // });
 });
 
 function login(socket, userName) {
-  console.log('Login: ', userName);
   socket.send(JSON.stringify({
     type: 'response-login',
     userName,
