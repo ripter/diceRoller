@@ -1,10 +1,15 @@
 const express = require('express');
 const app = express();
-const expressWs = require('express-ws')(app);
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 19414;
+const SOCKET_PORT = process.env.SOCKET_PORT || 26487;
 
 const { roll1dF, toTotal } = require('./rollFateDice.js');
 
+const expressWs = require('express-ws')(app, null, {
+  wsOptions: {
+    port: SOCKET_PORT,
+  }
+});
 // static assests from /public
 app.use('/', express.static('public'));
 // allow cross origin calls
@@ -72,4 +77,5 @@ function sendError(socket, message) {
   console.log('\nERROR:\t', message);
 }
 
+console.log('Server on PORT:', PORT);
 app.listen(PORT);
