@@ -2,3 +2,10 @@
   width: 20em;
   height: 30em;
 }
+
+#elmSocketStatus[state="closed"]::before {
+  content: '🍎';
+}
+#elmSocketStatus[state="opened"]::before {
+  content: '🍏';
+}

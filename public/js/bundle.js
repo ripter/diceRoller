@@ -90,23 +90,10 @@
 /*!*************************!*\
   !*** ./client/index.js ***!
   \*************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/*! no static exports found */
+/***/ (function(module, exports) {
 
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _rollFateDice_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./rollFateDice.js */ \"./client/rollFateDice.js\");\n\nvar NAME = 'Rose 🐶'; // Make sure the output starts cleared\n\nelmOutput.value = ''; // Listen for roll clicks\n\nwindow.btnRoll.addEventListener('click', function (event) {\n  var result = Object(_rollFateDice_js__WEBPACK_IMPORTED_MODULE_0__[\"rollFateDice\"])(); // const result = roll1dF();\n\n  elmOutput.value += \"\".concat(NAME, \" rolled a \").concat(result, \"\\n\");\n});\n\n//# sourceURL=webpack:///./client/index.js?");
-
-/***/ }),
-
-/***/ "./client/rollFateDice.js":
-/*!********************************!*\
-  !*** ./client/rollFateDice.js ***!
-  \********************************/
-/*! exports provided: rollFateDice, d6, roll1dF */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"rollFateDice\", function() { return rollFateDice; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"d6\", function() { return d6; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"roll1dF\", function() { return roll1dF; });\n/**\n * Rolls 4 Fate/Fudge dice (1dF) and returns the result.\n * @return {Number} a number between -4 and +4\n */\nfunction rollFateDice() {\n  return roll1dF().reduce(function (total, diceValue) {\n    return total + diceValue;\n  }, 0); // const rolls = [\n  //   d6(), d6(), d6(), d6()\n  // ];\n  //\n  // return rolls.reduce((acc, rollResult) => {\n  //   if (rollResult <= 2) {\n  //     acc--;\n  //   }\n  //   else if (rollResult >= 5) {\n  //     acc++;\n  //   }\n  //   return acc;\n  // }, 0);\n}\nfunction d6() {\n  return 0 | Math.random() * 6 + 1;\n}\nfunction roll1dF() {\n  var rolls = [d6(), d6(), d6(), d6()];\n  return rolls.map(function (value) {\n    if (value <= 2) {\n      return -1;\n    }\n\n    if (value >= 5) {\n      return +1;\n    }\n\n    return 0;\n  });\n}\n\n//# sourceURL=webpack:///./client/rollFateDice.js?");
+eval("var socket = null; // Make sure the output starts cleared\n\nelmOutput.value = ''; // Listen for roll clicks\n\nwindow.btnRoll.addEventListener('click', function (event) {\n  if (!socket || socket.readyState !== socket.OPEN) {\n    return;\n  } // const result = rollFateDice();\n  // const result = roll1dF();\n  // elmOutput.value = `${NAME} rolled a ${result}\\n` + elmOutput.value;\n  // Ask for a dice roll\n\n\n  socket.send(JSON.stringify({\n    type: 'roll',\n    userName: userName\n  }));\n});\nbtnLogin.addEventListener('click', function (event) {\n  var name = inputName.value;\n\n  if (!name || name === '') {\n    alert('Need a name dude!');\n    return;\n  }\n\n  userName = name;\n  window.socket = socket = new WebSocket(\"ws:/\".concat(location.host, \"/\")); // wait for connection\n\n  socket.addEventListener('open', function () {\n    elmSocketStatus.setAttribute('state', 'opened'); // Send login info\n\n    socket.send(JSON.stringify({\n      type: 'login',\n      userName: userName\n    }));\n  }); // If the connection is lost, update the ui to show it.\n\n  socket.addEventListener('close', function () {\n    elmSocketStatus.setAttribute('state', 'closed');\n  }); // If the connection is lost, update the ui to show it.\n\n  socket.addEventListener('message', function (event) {\n    var payload;\n\n    try {\n      payload = JSON.parse(event.data);\n    } catch (e) {\n      throw new Error('Could not parse message', event);\n      return;\n    }\n\n    switch (payload.type) {\n      case 'response-roll':\n        updateRolls(payload);\n        break;\n\n      default:\n        console.log('message', payload);\n    }\n  });\n});\n\nfunction updateRolls(_ref) {\n  var userName = _ref.userName,\n      total = _ref.total;\n  elmOutput.value = \"\".concat(userName, \" rolled a \").concat(total, \"\\n\") + elmOutput.value;\n}\n\n//# sourceURL=webpack:///./client/index.js?");
 
 /***/ })
 
