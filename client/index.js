@@ -25,10 +25,10 @@ btnLogin.addEventListener('click', function(event) {
 
   userName = name;
   document.body.setAttribute('state', 'pending');
-  window.socket = socket = new WebSocket(`ws:/${location.hostname}:26487/`);
+  window.socket = socket = new WebSocket(`ws:/${location.host}/websocket`);
 
   socket.addEventListener('error', function(event) {
-    console.error('Socket Error', event);  
+    console.error('Socket Error', event);
   });
 
   // wait for connection

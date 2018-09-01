@@ -5,11 +5,11 @@ const SOCKET_PORT = process.env.SOCKET_PORT || 26487;
 
 const { roll1dF, toTotal } = require('./rollFateDice.js');
 
-const expressWs = require('express-ws')(app, null, {
-  wsOptions: {
-    port: SOCKET_PORT,
-  }
-});
+let wsOptions = {};
+if (PORT !== SOCKET_PORT) {
+  wsOptions.port = SOCKET_PORT;
+}
+const expressWs = require('express-ws')(app, null, wsOptions);
 // static assests from /public
 app.use('/', express.static('public'));
 // allow cross origin calls
@@ -21,9 +21,9 @@ app.use(function(req, res, next) {
 
 
 // URL for WebSocket
-app.ws('/', function(ws, req) {
+app.ws('/websocket', function(ws, req) {
   ws.on('message', function(msg) {
-    // console.log('onMessage: ', msg);
+    console.log('onMessage: ', msg);
     let payload;
     try {
       payload = JSON.parse(msg);
@@ -78,4 +78,5 @@ function sendError(socket, message) {
 }
 
 console.log('Server on PORT:', PORT);
+console.log('WebsockServer on PORT:', SOCKET_PORT);
 app.listen(PORT);

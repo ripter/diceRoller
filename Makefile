@@ -1,6 +1,7 @@
 .PHONY: all build server clean hotel.add
 NODE_BIN=./node_modules/.bin
 PORT=5052
+SOCKET_PORT=5052
 
 all: build server
 
@@ -8,7 +9,7 @@ build: node_modules/
 	$(NODE_BIN)/webpack
 
 server: node_modules/
-	PORT=$(PORT) node server/index.js
+	env PORT=$(PORT) SOCKET_PORT=$(SOCKET_PORT) node server/index.js
 
 node_modules/: package.json
 	npm install
