@@ -44,9 +44,15 @@ app.ws('/websocket', function(ws, req) {
         sendError(ws, `Unknown payload.type: "${payload.type}"`);
     }
   });
-  // ws.on('close', function(msg) {
-  //   console.log('onClose: ', msg);
-  // });
+  ws.on('close', function(msg) {
+    console.log('onClose: ', msg);
+  });
+  ws.on('open', function(msg) {
+    console.log('onOpen: ', msg);
+  });
+  ws.on('error', function(msg) {
+    console.log('onError: ', msg);
+  });
 });
 
 function login(socket, userName) {
