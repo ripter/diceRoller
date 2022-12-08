@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/ripter/diceRoller#readme",
   "dependencies": {
-    "express": "^4.16.3",
+    "express": "^4.17.3",
     "express-ws": "^4.0.0"
   },
   "devDependencies": {
