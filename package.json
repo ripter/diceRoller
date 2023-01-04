@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "hyperhtml": "^2.13.0",
-    "@babel/core": "^7.0.0",
+    "@babel/core": "^7.20.7",
     "@babel/plugin-transform-runtime": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "babel-loader": "^8.0.0",
