@@ -6,7 +6,7 @@ SOCKET_PORT=5052
 all: build server
 
 build: node_modules/
-	$(NODE_BIN)/webpack
+	npx webpack
 
 server: node_modules/
 	env PORT=$(PORT) SOCKET_PORT=$(SOCKET_PORT) node server/index.js
